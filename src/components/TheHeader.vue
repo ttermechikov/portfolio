@@ -1,46 +1,84 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
+import HamburgerMenuIcon from '@/components/Icons/HamburgerMenuIcon.vue'
 
 const route = useRoute()
-
 const path = computed(() => route.path)
-
 const routerLinks = [
   { to: '/', title: 'Главная' },
-  { to: '/projects', title: 'Портфолио' },
+  { to: '/projects', title: 'Портфолио' }
 ]
+
+const isHamburgerMenuVisible = ref(false)
+const toggleHambergerMenu = () => {
+  isHamburgerMenuVisible.value = !isHamburgerMenuVisible.value
+}
 </script>
 
 <template>
-  <header class="pointer-events-none relative z-50 flex flex-col">
-    <div class="top-0 z-10 h-16 pt-6">
-      <div class="sm:px-8 top-[var(--header-top,theme(spacing.6))] w-full">
-        <div class="mx-auto max-w-7xl lg:px-8">
-          <div class="relative px-4 sm:px-8 lg:px-12">
-            <div class="mx-auto max-w-2xl lg:max-w-5xl">
-              <div class="relative flex gap-4">
-                <div class="flex flex-1 justify-end md:justify-center">
-                  <nav class="pointer-events-auto hidden md:block">
-                    <ul
-                      class="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur"
-                    >
-                      <li v-for="(link, index) in routerLinks" :key="index">
-                        <RouterLink
-                          :to="link.to"
-                          :class="{ 'text-teal-500': path === link.to }"
-                          class="relative block px-3 py-2 transition hover:text-teal-500"
-                          >{{ link.title }}</RouterLink
-                        >
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
-              </div>
-            </div>
-          </div>
+  <header :class="$style.header">
+    <nav :class="$style.nav">
+      <div :class="$style.navInner">
+        <button
+          @click="toggleHambergerMenu"
+          type="button"
+          :class="$style.hamburgerMenuBtn"
+          :aria-expanded="isHamburgerMenuVisible"
+        >
+          <HamburgerMenuIcon class="w-6 h-6" />
+        </button>
+
+        <div :class="{ hidden: !isHamburgerMenuVisible }" class="w-full md:block md:w-auto">
+          <ul class="flex-col pt-6 lg:flex-row lg:self-start lg:py-0 lg:flex">
+            <li
+              v-for="(link, index) in routerLinks"
+              :key="index"
+              class="mb-3 lg:px-2 xl:px-2 lg:mb-0"
+            >
+              <RouterLink
+                :to="link.to"
+                :class="[
+                  $style.routerLink,
+                  path === link.to
+                    ? 'text-blue-600  dark:text-blue-500 '
+                    : 'text-gray-900 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-500'
+                ]"
+                >{{ link.title }}</RouterLink
+              >
+            </li>
+          </ul>
         </div>
       </div>
-    </div>
+    </nav>
   </header>
 </template>
+
+<style module>
+.header {
+  @apply sticky top-0 z-40 flex-none w-full mx-auto bg-white border-b border-gray-200 dark:border-gray-600 dark:bg-gray-800;
+}
+
+.nav {
+  @apply flex items-center justify-between w-full px-3 py-3 mx-auto lg:px-4;
+}
+
+.navInner {
+  @apply max-w-screen-xl flex flex-wrap items-center justify-center mx-auto p-4;
+}
+.nav-link {
+  @apply block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent;
+}
+
+.nav-link-selected {
+  @apply block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500;
+}
+
+.routerLink {
+  @apply text-sm font-medium;
+}
+
+.hamburgerMenuBtn {
+  @apply items-start text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600;
+}
+</style>
