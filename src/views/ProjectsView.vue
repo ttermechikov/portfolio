@@ -13,13 +13,9 @@ const { loading, error, filteredProjectsList } = storeToRefs(useProjectsStore())
 <template>
   <TheHeading>Список проектов</TheHeading>
 
-  <div v-if="loading">
-    <TheSpinner />
-  </div>
+  <TheSpinner v-if="loading" />
 
-  <div v-else-if="error">
-    <ErrorMessage> Ошибка при загрузке </ErrorMessage>
-  </div>
+  <ErrorMessage v-else-if="error"> {{ error }} </ErrorMessage>
 
   <div v-else>
     <TechnologiesFilter />

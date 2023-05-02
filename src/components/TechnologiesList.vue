@@ -8,7 +8,12 @@ defineProps<{
 
 <template>
   <p>
-    <span v-for="technology in technologies" :key="technology.id" :class="$style.technologies">
+    <span
+      v-for="technology in technologies"
+      :key="technology.id"
+      :class="$style.technologies"
+      data-testid="technology-item"
+    >
       {{ technology.name }}
     </span>
   </p>

@@ -19,7 +19,7 @@ export const filterTechnologiesByUnique = (technologiesList: Technology[]) => {
     const nextItem = array[index + 1]
 
     if (!nextItem) {
-      return false
+      return true
     }
 
     return technology.id !== nextItem.id

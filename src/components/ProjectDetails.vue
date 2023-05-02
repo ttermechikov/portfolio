@@ -9,15 +9,16 @@ defineProps<{
 </script>
 
 <template>
-  <TheHeading>{{ project.name }}</TheHeading>
+  <TheHeading data-testid="project-name">{{ project.name }}</TheHeading>
   <TechnologiesList :technologies="project.technologies" class="mt-8 mb-8" />
-  <p v-html="project.description" :class="$style.description" />
+  <p v-html="project.description" :class="$style.description" data-testid="project-description" />
   <div :class="$style.buttons">
     <a
       v-show="project.repository_url"
       :href="project.repository_url"
       :class="$style.button"
       target="_blank"
+      data-testid="project-repository-url"
       >Репозиторий
     </a>
     <a
@@ -25,6 +26,7 @@ defineProps<{
       :href="project.url"
       :class="$style.button"
       target="_blank"
+      data-testid="project-url"
       >Демо</a
     >
   </div>

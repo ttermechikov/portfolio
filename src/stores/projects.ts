@@ -54,6 +54,7 @@ export const useProjectsStore = defineStore('projects', () => {
   })
 
   return {
+    projectList,
     filteredProjectsList,
     projectsMap,
     error,

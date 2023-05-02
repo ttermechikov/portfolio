@@ -3,6 +3,7 @@
     <div role="status">
       <svg
         :class="$style.svg"
+        data-testid="spinner"
         aria-hidden="true"
         viewBox="0 0 100 101"
         fill="none"

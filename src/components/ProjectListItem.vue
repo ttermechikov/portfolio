@@ -9,7 +9,7 @@ defineProps<{
 </script>
 
 <template>
-  <li :class="$style.card">
+  <li :class="$style.card" data-testid="project-card">
     <h2 :class="$style.title">
       {{ project.name }}
     </h2>

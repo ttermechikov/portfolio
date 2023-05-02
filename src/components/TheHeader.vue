@@ -30,7 +30,7 @@ const toggleHambergerMenu = () => {
         </button>
 
         <div :class="{ hidden: !isHamburgerMenuVisible }" class="w-full md:block md:w-auto">
-          <ul class="flex-col pt-6 lg:flex-row lg:self-start lg:py-0 lg:flex">
+          <ul :class="$style.navList">
             <li
               v-for="(link, index) in routerLinks"
               :key="index"
@@ -66,12 +66,9 @@ const toggleHambergerMenu = () => {
 .navInner {
   @apply max-w-screen-xl flex flex-wrap items-center justify-center mx-auto p-4;
 }
-.nav-link {
-  @apply block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent;
-}
 
-.nav-link-selected {
-  @apply block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500;
+.navList {
+  @apply flex-col pt-6 lg:flex-row lg:self-start lg:py-0 lg:flex;
 }
 
 .routerLink {

@@ -11,7 +11,7 @@ function selectTechnology(name: Technology['name']) {
 </script>
 
 <template>
-  <div class="container">
+  <div class="container" data-testid="technologies-filter">
     <button
       @click="selectTechnology('')"
       :class="{ selected: !selectedTechnologyName }"
@@ -27,6 +27,7 @@ function selectTechnology(name: Technology['name']) {
       @click="selectTechnology(technology.name)"
       type="button"
       class="button"
+      data-testid="technology-select-button"
     >
       {{ technology.name }}
     </button>
