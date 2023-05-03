@@ -1,4 +1,4 @@
-import type { ObjectWithId, Project, Technology } from '@/types'
+import type { ObjectWithId, ObjectWithWeight, Project, Technology } from '@/types'
 import { marked } from 'marked'
 
 const parseMarkdown = (markdown: string) => {
@@ -12,7 +12,9 @@ export const processProjectDescription = (project: Project): Project => {
   }
 }
 
-export const sortById = (a: ObjectWithId, b: ObjectWithId) => a.id - b.id
+export const sortByIdAsc = (a: ObjectWithId, b: ObjectWithId) => a.id - b.id
+
+export const sortByWeightDesc = (a: ObjectWithWeight, b: ObjectWithWeight) => b.weight - a.weight
 
 export const filterTechnologiesByUnique = (technologiesList: Technology[]) => {
   return technologiesList.filter((technology, index, array) => {

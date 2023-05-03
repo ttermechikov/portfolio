@@ -5,11 +5,14 @@ import {
   filterProjectsByName,
   filterTechnologiesByUnique,
   processProjectDescription,
-  sortById
+  sortByIdAsc,
+  sortByWeightDesc
 } from '@/composables/utils'
 
-// const apiBaseUrl = 'https://ttermechikov.tk/api'
-const apiBaseUrl = 'http://localhost:3000/api'
+const apiBaseUrl =
+  process.env.NODE_ENV === 'production'
+    ? 'https://ttermechikov.tk/api'
+    : 'http://localhost:3000/api'
 
 export const useProjectsStore = defineStore('projects', () => {
   const projectList = ref<Project[]>([])
@@ -48,9 +51,9 @@ export const useProjectsStore = defineStore('projects', () => {
   const technologiesList = computed((): Technology[] => {
     const flattenTechnologiesList = projectList.value
       .flatMap((project: Project) => project.technologies)
-      .sort(sortById)
+      .sort(sortByIdAsc)
 
-    return filterTechnologiesByUnique(flattenTechnologiesList)
+    return filterTechnologiesByUnique(flattenTechnologiesList).sort(sortByWeightDesc)
   })
 
   return {

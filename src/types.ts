@@ -19,3 +19,7 @@ export type ProjectsMap = Record<Project['id'], Project>
 export type ObjectWithId = {
   id: any
 }
+
+export type ObjectWithWeight = {
+  weight: number
+}
